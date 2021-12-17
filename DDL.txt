@@ -1,0 +1,48 @@
+-- public.competidores definition
+
+-- Drop table
+
+-- DROP TABLE public.competidores;
+
+CREATE TABLE public.competidores (
+	id int4 NOT NULL,
+	nome varchar(150) NOT NULL,
+	sexo varchar(1) NOT NULL,
+	temperatura_media_corpo numeric NULL,
+	peso numeric NOT NULL,
+	altura numeric NOT NULL,
+	CONSTRAINT competidores_pk PRIMARY KEY (id)
+);
+
+-- public.pista_corrida definition
+
+-- Drop table
+
+-- DROP TABLE public.pista_corrida;
+
+CREATE TABLE public.pista_corrida (
+	id int4 NOT NULL,
+	descricao varchar(50) NOT NULL,
+	CONSTRAINT pista_corrida_pk PRIMARY KEY (id)
+);
+
+-- public.historico_corrida definition
+
+-- Drop table
+
+-- DROP TABLE public.historico_corrida;
+
+CREATE TABLE public.historico_corrida (
+	id int4 NOT NULL,
+	competidor_id int4 NOT NULL,
+	pista_corrida_id int4 NOT NULL,
+	data_corrida information_schema."time_stamp" NOT NULL,
+	tempo_gasto numeric NOT NULL,
+	CONSTRAINT historico_corrida_pk PRIMARY KEY (id)
+);
+
+
+-- public.historico_corrida foreign keys
+
+ALTER TABLE public.historico_corrida ADD CONSTRAINT competidor_id_fk FOREIGN KEY (competidor_id) REFERENCES public.competidores(id);
+ALTER TABLE public.historico_corrida ADD CONSTRAINT pista_corrida_fk FOREIGN KEY (pista_corrida_id) REFERENCES public.pista_corrida(id);
